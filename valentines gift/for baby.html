@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For my baby</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* PAGE 1 */
+#page1 {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #cbeef3;
+  text-align: center;
+  position: relative;
+}
+
+#page1 h1, 
+#page1 h2 {
+  color: #dd2d4a;
+  position: relative;
+  z-index: 10;
+}
+
+.box {
+  background-color: #f49cbb;
+  padding: 40px;
+  border-radius: 12px;
+  z-index: 10;
+  position: relative;
+}
+
+.box button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #f49cbb;
+  background-color: #dd2d4a;
+  cursor: pointer;
+}
+
+#kulitText {
+  display: none;
+  margin-top: 20px;
+  color: #dd2d4a;
+  font-weight: bold;
+}
+
+.hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #dd2d4a;
+  transform: rotate(-45deg);
+  animation: fall linear infinite;
+  opacity: 0.8;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #dd2d4a;
+  border-radius: 50%;
+}
+
+.heart::before { top: -7.5px; left: 0; }
+.heart::after { left: 7.5px; top: 0; }
+
+@keyframes fall {
+  0% { top: -20px; opacity: 0.8; }
+  100% { top: 110vh; opacity: 0; }
+}
+
+/* PAGE 2 */
+#page2 {
+  display: none;
+  height: 100vh;
+  background-image: url("image/lovieeee.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  text-align: center;
+  color: #ff006e;
+  position: relative;
+}
+
+#page2 h1 {
+  position: relative;
+  z-index: 2;
+}
+
+.fallingHeart {
+  position: fixed;
+  top: -10px;
+  font-size: 20px;
+  animation: fall2 linear infinite;
+  z-index: 1;
+}
+
+@keyframes fall2 {
+  to { transform: translateY(100vh); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1">
+  <h1>Happy Valentines Baby</h1>
+  <h2>Can I Be Your Valentines Date?</h2>
+
+  <div class="hearts" id="heartsContainer"></div>
+
+  <div class="box">
+    <img src="image/mwah-cat-rose.gif" width="150">
+    <br><br>
+    <button onclick="goToPage2()">Yes</button>
+    <button onclick="fakeError(this)">No</button>
+    <p id="kulitText">MAKULIT KA AHH</p>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2">
+  <br><br><br>
+  <img src="image/happy-cat-meme-face.gif" width="150">
+  <h1>I love youuu very much</h1>
+  <h1>Punta ikaw bahay mga 12 okie</h1>
+  <h1>mwaaa 💋</h1>
+</div>
+
+<script>
+let noClicks = 0;
+const messages = [
+  "LUH",
+  "ISA",
+  "PLEASE BABY?",
+  "LUH MAKULIT KA?",
+  "MADAMOT YARN?",
+  "MAG YES NA KASE",
+  "OK"
+];
+
+function fakeError(el) {
+  el.textContent = messages[noClicks];
+  noClicks++;
+  if (noClicks === 7) {
+    el.style.display = "none";
+    document.getElementById("kulitText").style.display = "block";
+  }
+}
+
+function goToPage2() {
+  document.getElementById("page1").style.display = "none";
+  document.getElementById("page2").style.display = "block";
+
+  // Add falling hearts to page 2
+  for (let i = 0; i < 25; i++) {
+    const heart = document.createElement("div");
+    heart.className = "fallingHeart";
+    heart.innerHTML = ["❤","💗","💖"][Math.floor(Math.random()*3)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+    document.body.appendChild(heart);
+  }
+}
+
+// Generate hearts on page 1
+const heartsContainer = document.getElementById('heartsContainer');
+for(let i = 0; i < 30; i++) {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+  heart.style.animationDelay = (Math.random() * 7) + 's';
+  heartsContainer.appendChild(heart);
+}
+</script>
+
+</body>
+</html>
